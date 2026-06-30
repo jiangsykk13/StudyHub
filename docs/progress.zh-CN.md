@@ -279,3 +279,20 @@
 ### 未来优化
 
 - 如果后续 pnpm 在 CI 中的可选依赖处理足够稳定，可以移除这个定向引导脚本，重新使用包管理器默认行为。
+
+## 2026-06-30 — CI AJV peer 解析修复
+
+### 变更
+
+- 新增显式根目录 `ajv` 开发依赖，在项目仍关闭大范围 optional 安装的情况下，让 `ajv-formats` 的 optional peer 链接可以解析。
+- 保留 Rollup、Turborepo 和 esbuild 的定向原生工具引导安装。
+- 在 CI 原生包检查中增加校验，确保每个已安装的 `ajv-formats` 实例都能从自身包上下文解析 `ajv/dist/compile/codegen`。
+
+### 功能结果
+
+- NestJS 和 webpack 工具链可以解析 `ajv-formats` 需要的 AJV 内部模块。
+- CI 仍会检查关闭 optional 安装后可能导致验证失败的 Rollup、Turborepo 和 esbuild 原生包。
+
+### 未来优化
+
+- 如果后续包管理器版本可以同时稳定处理 optional peer 和平台原生 optional 依赖，可以再评估是否保留显式 AJV peer 和原生工具引导脚本。

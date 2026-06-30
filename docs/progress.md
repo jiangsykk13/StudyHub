@@ -631,3 +631,20 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - If pnpm optional dependency handling becomes stable enough for this project in CI, the targeted bootstrap can be removed and the package-manager default can be used again.
+
+## 2026-06-30 — CI AJV peer resolution fix
+
+### Change
+
+- Added an explicit root `ajv` development dependency so `ajv-formats` optional peer links resolve while project-wide optional dependency installation remains disabled.
+- Kept the targeted native tooling bootstrap for Rollup, Turborepo, and esbuild.
+- Added a CI smoke check that verifies every installed `ajv-formats` instance can resolve `ajv/dist/compile/codegen` from its own package context.
+
+### Functional Outcome
+
+- NestJS and webpack tooling can resolve the AJV internals required by `ajv-formats`.
+- CI still verifies the Rollup, Turborepo, and esbuild native packages that can break verification after optional dependency installation is disabled.
+
+### Future Optimization
+
+- If a future package-manager release handles optional peers and platform-native optional dependencies reliably together, the explicit AJV peer and native bootstrap can be reviewed.

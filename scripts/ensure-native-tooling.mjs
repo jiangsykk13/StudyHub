@@ -26,6 +26,10 @@ const nativePackages = [
   {
     sourcePackage: "turbo",
     nativePackage: turboNativePackage()
+  },
+  {
+    sourcePackage: "esbuild",
+    nativePackage: esbuildNativePackage()
   }
 ];
 
@@ -126,6 +130,20 @@ function turboNativePackage() {
   if (platform === "linux" && arch === "arm64") return "@turbo/linux-arm64";
 
   throw new Error(`Unsupported Turborepo platform: ${platform}/${arch}.`);
+}
+
+function esbuildNativePackage() {
+  const platform = process.platform;
+  const arch = process.arch;
+
+  if (platform === "win32" && arch === "x64") return "@esbuild/win32-x64";
+  if (platform === "win32" && arch === "arm64") return "@esbuild/win32-arm64";
+  if (platform === "darwin" && arch === "x64") return "@esbuild/darwin-x64";
+  if (platform === "darwin" && arch === "arm64") return "@esbuild/darwin-arm64";
+  if (platform === "linux" && arch === "x64") return "@esbuild/linux-x64";
+  if (platform === "linux" && arch === "arm64") return "@esbuild/linux-arm64";
+
+  throw new Error(`Unsupported esbuild platform: ${platform}/${arch}.`);
 }
 
 function isMusl() {

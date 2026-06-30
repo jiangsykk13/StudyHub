@@ -53,6 +53,23 @@ jobs:
         run: |
           node -e "require.resolve('@rollup/rollup-linux-x64-gnu')"
           node -e "require.resolve('@turbo/linux-64/package.json')"
+          node -e "require.resolve('@esbuild/linux-x64/package.json')"
+          node <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+
+          const pnpmStore = path.resolve("node_modules/.pnpm");
+          const formatPackages = fs.readdirSync(pnpmStore).filter((entry) => entry.startsWith("ajv-formats@"));
+
+          if (formatPackages.length === 0) {
+            throw new Error("No ajv-formats packages were installed.");
+          }
+
+          for (const entry of formatPackages) {
+            const formatPackage = path.join(pnpmStore, entry, "node_modules/ajv-formats");
+            require.resolve("ajv/dist/compile/codegen", { paths: [formatPackage] });
+          }
+          NODE
       - name: Prepare PostgreSQL databases
         run: |
           sudo apt-get update
