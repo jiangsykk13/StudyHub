@@ -157,7 +157,8 @@ Keep the repository close to this structure:
 │   ├── api.md
 │   ├── deployment.md
 │   ├── backup-restore.md
-│   └── progress.md
+│   ├── progress.md
+│   └── progress.zh-CN.md
 └── .github/workflows/ci.yml
 ```
 
@@ -454,15 +455,15 @@ For substantial work:
 
 1. read `AGENTS.md`, `CODEX_GOAL.md`, `README.md`, and relevant architecture documents;
 2. inspect the repository and current test status;
-3. record the current milestone and assumptions in `docs/progress.md`;
+3. record the current milestone and assumptions in both `docs/progress.md` and `docs/progress.zh-CN.md`;
 4. implement one coherent vertical slice;
 5. add or update tests;
 6. run the narrowest useful checks first, then the full relevant verification;
 7. inspect the diff for security, authorization, data-loss, and regression risks;
-8. update documentation and the progress log;
+8. update documentation and both progress logs;
 9. continue to the next milestone only when the current one is verifiably usable.
 
-Maintain `docs/progress.md` as an append-only project timeline. Every code or documentation change must add a new dated entry without overwriting earlier entries. Each entry should summarize what changed, what user-facing or operational function was added or improved, and what could be optimized later. Keep the wording focused on product behavior and project progress rather than detailed implementation mechanics.
+Maintain `docs/progress.md` and `docs/progress.zh-CN.md` as append-only project timelines: the English and Simplified Chinese versions of the same project history. Every code or documentation change must add a new dated entry to both files without deleting or overwriting earlier entries. Keep entries in chronological order from oldest to newest; for same-day entries, keep the actual milestone or work order, and place the newest entry at the end. Each entry should summarize what changed, what user-facing or operational function was added or improved, and what could be optimized later. Keep the wording focused on product behavior and project progress rather than detailed implementation mechanics.
 
 Do not mark work complete because files were created. Completion requires executable behavior and passing verification.
 

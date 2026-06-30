@@ -1,6 +1,6 @@
 # Project Progress Timeline
 
-This document is an append-only timeline of project changes. Add a new dated entry for each code or documentation update. Keep entries focused on what changed for users or operators, what capability was added or improved, and what could be optimized later.
+This document is the English append-only timeline of project changes. Add a new dated entry for each code or documentation update, and add the matching Chinese entry to `docs/progress.zh-CN.md`. Keep entries in chronological order from oldest to newest, with the newest entry at the end. Keep entries focused on what changed for users or operators, what capability was added or improved, and what could be optimized later.
 
 ## 2026-06-27
 
@@ -548,3 +548,37 @@ This document is an append-only timeline of project changes. Add a new dated ent
 - Batch downloads.
 - Online code/notebook execution, OCR, AI summaries, recommendations, realtime collaboration, video hosting, public social features, payments, Elasticsearch, Kubernetes, and native mobile apps remain intentionally out of scope.
 - Automated production backup scheduling, cross-region object replication, long-term object cleanup jobs, and advanced audit export can be added after the MVP.
+
+## 2026-06-30 — Progress timeline correction and bilingual logs
+
+### Change
+
+- Restored the English progress timeline order so Milestone 2 appears between Milestone 1 and Milestone 3 instead of after the final handoff entry.
+- Added a Simplified Chinese companion timeline at `docs/progress.zh-CN.md`.
+- Updated the project workflow so future progress updates must be recorded in both English and Chinese timeline files.
+
+### Functional Outcome
+
+- Project progress can now be read in the actual work order, with the newest updates at the end.
+- English and Chinese readers can track the same project history without losing earlier entries.
+
+### Future Optimization
+
+- A small validation script or review checklist could later check timeline heading order and confirm both language files receive matching entries.
+
+## 2026-06-30 — CI MinIO startup fix
+
+### Change
+
+- Changed GitHub Actions to start MinIO in an explicit Docker step with the required `server /data` command.
+- Removed MinIO from the GitHub Actions service container list, while keeping PostgreSQL as a service container.
+- Kept the private bucket preparation step after MinIO readiness is confirmed.
+
+### Functional Outcome
+
+- The CI job no longer fails during GitHub Actions container initialization because MinIO is started with its required runtime command.
+- Migrations, seed data, verification, and browser tests can still use the same private local S3-compatible endpoint in CI.
+
+### Future Optimization
+
+- If GitHub Actions adds first-class service container command support, MinIO can be moved back into the service container block.
