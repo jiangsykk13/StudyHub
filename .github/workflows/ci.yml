@@ -46,7 +46,10 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-      - run: pnpm --config.optional=true install --frozen-lockfile
+      - name: Install dependencies
+        run: |
+          pnpm config get optional
+          pnpm install --frozen-lockfile
       - name: Verify native package installs
         run: |
           node -e "require.resolve('@rollup/rollup-linux-x64-gnu')"

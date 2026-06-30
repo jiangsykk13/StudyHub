@@ -598,3 +598,19 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - If a future package manager version removes the optional dependency edge case, the explicit CI environment setting can be reviewed.
+
+## 2026-06-30 — CI install step stabilization
+
+### Change
+
+- Replaced the CI install command-level pnpm optional override with the job-level `PNPM_CONFIG_OPTIONAL=true` setting and the normal frozen install command.
+- Added an install-step config echo before dependency installation so future CI failures show whether optional dependencies are enabled.
+
+### Functional Outcome
+
+- The dependency install step avoids an extra pnpm CLI override while still installing platform-native optional packages needed by Rollup and Turborepo.
+- Future CI output will make optional dependency configuration visible before verification begins.
+
+### Future Optimization
+
+- Once the CI run is green, the native-package smoke checks can remain as a guard against future package-manager regressions.
