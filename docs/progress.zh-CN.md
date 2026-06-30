@@ -296,3 +296,17 @@
 ### 未来优化
 
 - 如果后续包管理器版本可以同时稳定处理 optional peer 和平台原生 optional 依赖，可以再评估是否保留显式 AJV peer 和原生工具引导脚本。
+
+## 2026-06-30 — CI Playwright 浏览器安装
+
+### 变更
+
+- 在 GitHub Actions 中新增步骤，在运行 E2E 测试前安装 Playwright Chromium 及其 Linux 系统依赖。
+
+### 功能结果
+
+- CI 可以在全新的 Ubuntu runner 上运行浏览器 E2E 套件，不会因为缺少 Chromium 而失败。
+
+### 未来优化
+
+- 如果后续 CI 镜像内置了所需浏览器和系统包，可以再评估是否保留这个显式安装步骤。

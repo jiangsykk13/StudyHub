@@ -110,4 +110,6 @@ jobs:
           DATABASE_URL="$TEST_DATABASE_URL" pnpm db:migrate
       - run: pnpm db:seed
       - run: pnpm verify
+      - name: Install Playwright browsers
+        run: pnpm --filter @studyhub/web exec playwright install --with-deps chromium
       - run: pnpm test:e2e

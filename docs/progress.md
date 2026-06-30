@@ -648,3 +648,17 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - If a future package-manager release handles optional peers and platform-native optional dependencies reliably together, the explicit AJV peer and native bootstrap can be reviewed.
+
+## 2026-06-30 — CI Playwright browser install
+
+### Change
+
+- Added a GitHub Actions step that installs Playwright Chromium and its Linux system dependencies before E2E tests run.
+
+### Functional Outcome
+
+- CI can run the browser E2E suite on a fresh Ubuntu runner instead of failing because Chromium is missing.
+
+### Future Optimization
+
+- If the CI image later includes the required browser and system packages, this explicit installation step can be reviewed.
