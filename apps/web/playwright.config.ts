@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 import path from "node:path";
 
 const workspaceRoot = path.resolve(__dirname, "../..");
+const isCi = process.env.CI === "true";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -19,10 +20,12 @@ export default defineConfig({
     }
   ],
   webServer: {
-    command: `pnpm --dir "${workspaceRoot}" dev`,
+    command: isCi
+      ? `node "${path.join(workspaceRoot, "scripts/start-e2e-server.mjs")}"`
+      : `pnpm --dir "${workspaceRoot}" dev`,
     url: "http://localhost:3000",
     reuseExistingServer: true,
-    timeout: 120_000,
+    timeout: isCi ? 180_000 : 120_000,
     env: {
       DATABASE_URL:
         process.env.DATABASE_URL ??

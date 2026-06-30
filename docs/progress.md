@@ -662,3 +662,19 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - If the CI image later includes the required browser and system packages, this explicit installation step can be reviewed.
+
+## 2026-06-30 — CI E2E startup stabilization
+
+### Change
+
+- Added a CI-only Playwright webServer launcher that starts the already-built Nest API and Next.js production server instead of the slower root development command.
+- Kept local Playwright runs on the existing development startup path and increased the CI webServer timeout.
+
+### Functional Outcome
+
+- GitHub Actions E2E can reuse the `pnpm verify` build artifacts and wait on real API/Web health checks before browser tests begin.
+- The browser suite is less likely to fail during setup because the development watcher startup exceeded the Playwright webServer timeout.
+
+### Future Optimization
+
+- If the E2E suite later needs isolated test databases per run, the launcher can be extended to apply migrations and seed data for a temporary database before starting services.
