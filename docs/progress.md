@@ -582,3 +582,19 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - If GitHub Actions adds first-class service container command support, MinIO can be moved back into the service container block.
+
+## 2026-06-30 — CI native dependency install fix
+
+### Change
+
+- Updated pnpm configuration so optional platform-native dependencies are installed for the project.
+- Explicitly enabled optional dependency installation in GitHub Actions.
+
+### Functional Outcome
+
+- CI can install the Linux native packages required by Rollup, Turborepo, and other platform-specific tooling before running `pnpm verify`.
+- The verification pipeline no longer depends on runtime fallback installation for tool binaries.
+
+### Future Optimization
+
+- If a future package manager version removes the optional dependency edge case, the explicit CI environment setting can be reviewed.

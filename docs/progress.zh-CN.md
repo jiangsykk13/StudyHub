@@ -230,3 +230,19 @@
 ### 未来优化
 
 - 如果 GitHub Actions 后续支持为 service container 直接配置启动命令，可以再把 MinIO 移回 service container 配置。
+
+## 2026-06-30 — CI 原生依赖安装修复
+
+### 变更
+
+- 更新 pnpm 配置，确保项目会安装平台相关的可选原生依赖。
+- 在 GitHub Actions 中显式启用可选依赖安装。
+
+### 功能结果
+
+- CI 在运行 `pnpm verify` 之前可以安装 Rollup、Turborepo 和其他工具所需的 Linux 原生包。
+- 验证流程不再依赖运行时临时补装工具二进制文件。
+
+### 未来优化
+
+- 如果未来的包管理器版本消除了可选依赖安装边界问题，可以再评估是否保留 CI 中的显式环境设置。
