@@ -637,13 +637,13 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Change
 
 - Added an explicit root `ajv` development dependency so `ajv-formats` optional peer links resolve while project-wide optional dependency installation remains disabled.
-- Kept the targeted native tooling bootstrap for Rollup, Turborepo, and esbuild.
+- Kept the targeted native tooling bootstrap for Rollup, Turborepo, esbuild, lightningcss, and Tailwind Oxide.
 - Added a CI smoke check that verifies every installed `ajv-formats` instance can resolve `ajv/dist/compile/codegen` from its own package context.
 
 ### Functional Outcome
 
 - NestJS and webpack tooling can resolve the AJV internals required by `ajv-formats`.
-- CI still verifies the Rollup, Turborepo, and esbuild native packages that can break verification after optional dependency installation is disabled.
+- CI still verifies the Rollup, Turborepo, esbuild, lightningcss, and Tailwind Oxide native packages that can break verification after optional dependency installation is disabled.
 
 ### Future Optimization
 
