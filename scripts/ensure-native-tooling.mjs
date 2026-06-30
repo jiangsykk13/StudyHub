@@ -30,6 +30,14 @@ const nativePackages = [
   {
     sourcePackage: "esbuild",
     nativePackage: esbuildNativePackage()
+  },
+  {
+    sourcePackage: "lightningcss",
+    nativePackage: lightningCssNativePackage()
+  },
+  {
+    sourcePackage: "@tailwindcss/oxide",
+    nativePackage: tailwindOxideNativePackage()
   }
 ];
 
@@ -144,6 +152,42 @@ function esbuildNativePackage() {
   if (platform === "linux" && arch === "arm64") return "@esbuild/linux-arm64";
 
   throw new Error(`Unsupported esbuild platform: ${platform}/${arch}.`);
+}
+
+function lightningCssNativePackage() {
+  const platform = process.platform;
+  const arch = process.arch;
+
+  if (platform === "win32" && arch === "x64") return "lightningcss-win32-x64-msvc";
+  if (platform === "win32" && arch === "arm64") return "lightningcss-win32-arm64-msvc";
+  if (platform === "darwin" && arch === "x64") return "lightningcss-darwin-x64";
+  if (platform === "darwin" && arch === "arm64") return "lightningcss-darwin-arm64";
+  if (platform === "linux" && arch === "x64") {
+    return isMusl() ? "lightningcss-linux-x64-musl" : "lightningcss-linux-x64-gnu";
+  }
+  if (platform === "linux" && arch === "arm64") {
+    return isMusl() ? "lightningcss-linux-arm64-musl" : "lightningcss-linux-arm64-gnu";
+  }
+
+  throw new Error(`Unsupported lightningcss platform: ${platform}/${arch}.`);
+}
+
+function tailwindOxideNativePackage() {
+  const platform = process.platform;
+  const arch = process.arch;
+
+  if (platform === "win32" && arch === "x64") return "@tailwindcss/oxide-win32-x64-msvc";
+  if (platform === "win32" && arch === "arm64") return "@tailwindcss/oxide-win32-arm64-msvc";
+  if (platform === "darwin" && arch === "x64") return "@tailwindcss/oxide-darwin-x64";
+  if (platform === "darwin" && arch === "arm64") return "@tailwindcss/oxide-darwin-arm64";
+  if (platform === "linux" && arch === "x64") {
+    return isMusl() ? "@tailwindcss/oxide-linux-x64-musl" : "@tailwindcss/oxide-linux-x64-gnu";
+  }
+  if (platform === "linux" && arch === "arm64") {
+    return isMusl() ? "@tailwindcss/oxide-linux-arm64-musl" : "@tailwindcss/oxide-linux-arm64-gnu";
+  }
+
+  throw new Error(`Unsupported Tailwind Oxide platform: ${platform}/${arch}.`);
 }
 
 function isMusl() {

@@ -54,6 +54,8 @@ jobs:
           node -e "require.resolve('@rollup/rollup-linux-x64-gnu')"
           node -e "require.resolve('@turbo/linux-64/package.json')"
           node -e "require.resolve('@esbuild/linux-x64/package.json')"
+          node -e "require.resolve('lightningcss-linux-x64-gnu/package.json')"
+          node -e "require.resolve('@tailwindcss/oxide-linux-x64-gnu/package.json')"
           node <<'NODE'
           const fs = require("node:fs");
           const path = require("node:path");
