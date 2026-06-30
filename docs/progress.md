@@ -614,3 +614,20 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - Once the CI run is green, the native-package smoke checks can remain as a guard against future package-manager regressions.
+
+## 2026-06-30 — CI native tooling bootstrap
+
+### Change
+
+- Disabled broad optional dependency installation in project pnpm configuration.
+- Added a root postinstall bootstrap that installs only the platform-native Rollup and Turborepo packages required by the current machine.
+- Removed the CI job-level optional dependency override while keeping native package smoke checks.
+
+### Functional Outcome
+
+- CI can keep a normal frozen pnpm install without downloading every optional package variant.
+- Rollup and Turborepo still resolve their required Linux native packages before tests, type checks, and builds run.
+
+### Future Optimization
+
+- If pnpm optional dependency handling becomes stable enough for this project in CI, the targeted bootstrap can be removed and the package-manager default can be used again.

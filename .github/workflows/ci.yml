@@ -33,7 +33,6 @@ jobs:
       S3_FORCE_PATH_STYLE: "true"
       COOKIE_SECRET: ci-cookie-secret-please-replace-in-production-123
       CSRF_SECRET: ci-csrf-secret-please-replace-in-production-123
-      PNPM_CONFIG_OPTIONAL: "true"
       WEB_ORIGIN: http://localhost:3000
       TRUSTED_ORIGINS: http://localhost:3000,http://localhost:4000
       API_INTERNAL_URL: http://localhost:4000
@@ -53,7 +52,7 @@ jobs:
       - name: Verify native package installs
         run: |
           node -e "require.resolve('@rollup/rollup-linux-x64-gnu')"
-          node -e "require.resolve('@turbo/linux-64')"
+          node -e "require.resolve('@turbo/linux-64/package.json')"
       - name: Prepare PostgreSQL databases
         run: |
           sudo apt-get update

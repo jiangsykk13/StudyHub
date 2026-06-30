@@ -23,7 +23,8 @@
     "backup:db": "node scripts/backup-db.mjs",
     "restore:db": "node scripts/restore-db.mjs",
     "backup:objects": "node scripts/backup-objects.mjs",
-    "restore:objects": "node scripts/restore-objects.mjs"
+    "restore:objects": "node scripts/restore-objects.mjs",
+    "postinstall": "node scripts/ensure-native-tooling.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.840.0",
