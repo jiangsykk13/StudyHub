@@ -1,0 +1,51 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": [
+    "API_INTERNAL_URL",
+    "API_PORT",
+    "COOKIE_SECRET",
+    "CSRF_COOKIE_NAME",
+    "CSRF_SECRET",
+    "DATABASE_URL",
+    "MAX_UPLOAD_BYTES",
+    "NODE_ENV",
+    "S3_ACCESS_KEY_ID",
+    "S3_BUCKET",
+    "S3_ENDPOINT",
+    "S3_FORCE_PATH_STYLE",
+    "S3_PRESIGNED_TTL_SECONDS",
+    "S3_REGION",
+    "S3_SECRET_ACCESS_KEY",
+    "SESSION_COOKIE_NAME",
+    "SESSION_TTL_HOURS",
+    "TEST_DATABASE_URL",
+    "TEXT_PREVIEW_LIMIT_BYTES",
+    "TRUSTED_ORIGINS",
+    "USER_STORAGE_QUOTA_BYTES",
+    "WEB_ORIGIN"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "cache": false
+    }
+  }
+}

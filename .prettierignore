@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.next/
+coverage/
+playwright-report/
+test-results/
+.turbo/
+pnpm-lock.yaml
+AGENTS.md
+CODEX_GOAL.md
+prisma/migrations/

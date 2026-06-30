@@ -1,0 +1,13 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+confirmModulesPurge: false
+optional: false
+allowBuilds:
+  "@prisma/client": true
+  "@prisma/engines": true
+  "@scarf/scarf": true
+  argon2: true
+  esbuild: true
+  prisma: true
+  unrs-resolver: true

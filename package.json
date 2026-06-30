@@ -1,0 +1,50 @@
+{
+  "name": "studyhub",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "dev": "pnpm db:generate && pnpm --filter @studyhub/config build && pnpm --filter @studyhub/shared build && pnpm --filter @studyhub/ui build && turbo run dev --parallel",
+    "build": "pnpm db:generate && turbo run build",
+    "lint": "turbo run lint",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:integration": "turbo run test:integration",
+    "test:e2e": "pnpm --filter @studyhub/web test:e2e",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "infra:up": "docker compose up -d postgres minio minio-init",
+    "infra:down": "docker compose down",
+    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:integration && pnpm build",
+    "backup:db": "node scripts/backup-db.mjs",
+    "restore:db": "node scripts/restore-db.mjs",
+    "backup:objects": "node scripts/backup-objects.mjs",
+    "restore:objects": "node scripts/restore-objects.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.840.0",
+    "@prisma/client": "^6.10.1",
+    "argon2": "^0.43.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "@playwright/test": "^1.54.0",
+    "@types/node": "^24.0.7",
+    "eslint": "^9.30.0",
+    "eslint-config-next": "^15.3.4",
+    "prettier": "^3.6.2",
+    "prisma": "^6.10.1",
+    "tsx": "^4.20.3",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^3.2.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}
