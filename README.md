@@ -5,27 +5,44 @@ StudyHub is an invitation-only private learning-material sharing platform for sm
 ## Local Setup
 
 1. Install Node.js 24+, pnpm 11+, and Docker.
-2. Copy `.env.example` to `.env` and replace secrets before any shared deployment.
-3. Install dependencies:
+2. On Windows, run the local startup script from the repository root:
+
+```powershell
+.\start-local.cmd
+```
+
+The script creates `.env` from `.env.example` when missing, uses `pnpm` or `corepack pnpm`, starts PostgreSQL and MinIO, applies migrations, seeds development data, and starts the API and web apps.
+
+Useful options:
+
+```powershell
+.\start-local.cmd -NoDev
+.\start-local.cmd -SkipInstall
+.\start-local.cmd -ForceInstall
+.\start-local.cmd -SkipMigrate -SkipSeed
+```
+
+3. Manual setup is also available. Copy `.env.example` to `.env` and replace secrets before any shared deployment.
+4. Install dependencies:
 
 ```bash
 pnpm install
 ```
 
-4. Start PostgreSQL and MinIO:
+5. Start PostgreSQL and MinIO:
 
 ```bash
 pnpm infra:up
 ```
 
-5. Apply migrations and seed development data:
+6. Apply migrations and seed development data:
 
 ```bash
 pnpm db:migrate
 pnpm db:seed
 ```
 
-6. Start the API and web apps:
+7. Start the API and web apps:
 
 ```bash
 pnpm dev

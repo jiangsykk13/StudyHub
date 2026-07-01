@@ -326,3 +326,65 @@
 ### 未来优化
 
 - 如果后续 E2E 套件需要每次运行隔离测试数据库，可以扩展该启动脚本，在启动服务前为临时数据库执行迁移和种子数据。
+
+## 2026-06-30 — Windows 本地启动脚本
+
+### 变更
+
+- 新增根目录 `start-local.cmd` 启动器和 `scripts/start-local.ps1` Windows 本地启动脚本。
+- 更新 README，说明一键启动方式和常用脚本参数。
+
+### 功能结果
+
+- 开发者不必手动逐条执行本地启动命令即可启动项目。
+- 脚本会处理缺失的 `.env`、通过 Corepack 兜底缺失的 `pnpm` 命令、Docker 就绪检查、基础设施启动、数据库迁移、种子数据和最终开发服务器启动。
+
+### 未来优化
+
+- 如果后续需要支持非 Windows 本地开发，可以再增加 Unix shell 版本的一键启动入口。
+
+## 2026-06-30 — 本地 MinIO 初始化端点修复
+
+### 变更
+
+- 将 Docker Compose 中的 MinIO bucket 初始化容器改为使用 Docker 网络内端点 `http://minio:9000`，不再复用 `.env` 中面向宿主机应用的 `S3_ENDPOINT`。
+
+### 功能结果
+
+- 当 `.env` 中配置 `S3_ENDPOINT=http://localhost:9000` 供宿主机运行的 API 使用时，本地启动仍然可以正常完成。
+- bucket 初始化容器可以在 Compose 网络内稳定连接到 MinIO。
+
+### 未来优化
+
+- 如果后续有更多服务需要区分宿主机端点和容器内端点，可以在环境文件中显式记录两类配置。
+
+## 2026-06-30 — Windows 开发服务器启动稳定化
+
+### 变更
+
+- 将根目录 `pnpm dev` 命令改为通过 pnpm workspace filter 启动 API 和 Web 开发服务器，不再使用 Turbo 的 deprecated `--parallel` dev runner。
+
+### 功能结果
+
+- 本地启动可以避开迁移和种子数据完成后出现的 Windows Turbo 原生进程崩溃。
+- 构建、lint、类型检查、测试、集成测试和生产构建命令仍继续使用现有 Turbo 任务流水线。
+
+### 未来优化
+
+- 如果后续能在 Windows 上验证 Turbo 持久任务配置不再依赖 deprecated parallel flag，可以再评估是否恢复 Turbo dev 入口。
+
+## 2026-06-30 — Prisma 配置迁移
+
+### 变更
+
+- 新增 `prisma.config.ts`，集中配置 schema 路径、migrations 路径、seed 命令和 `DATABASE_URL` 数据源。
+- 移除 deprecated 的 `package.json#prisma` seed 配置。
+
+### 功能结果
+
+- Prisma migrate、generate 和 seed 命令不再输出关于 `package.json#prisma` 的弃用警告。
+- 项目在 Prisma 7 移除旧 package.json 字段前完成配置迁移。
+
+### 未来优化
+
+- 后续升级 ORM 和客户端包之前，应先检查 Prisma 7 迁移说明。

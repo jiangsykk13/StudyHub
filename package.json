@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "packageManager": "pnpm@11.7.0",
   "scripts": {
-    "dev": "pnpm db:generate && pnpm --filter @studyhub/config build && pnpm --filter @studyhub/shared build && pnpm --filter @studyhub/ui build && turbo run dev --parallel",
+    "dev": "pnpm db:generate && pnpm --filter @studyhub/config build && pnpm --filter @studyhub/shared build && pnpm --filter @studyhub/ui build && pnpm --parallel --filter @studyhub/api --filter @studyhub/web run dev",
     "build": "pnpm db:generate && turbo run build",
     "lint": "turbo run lint",
     "format:check": "prettier --check .",
@@ -45,8 +45,5 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0",
     "vitest": "^3.2.4"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
   }
 }

@@ -678,3 +678,65 @@ This document is the English append-only timeline of project changes. Add a new 
 ### Future Optimization
 
 - If the E2E suite later needs isolated test databases per run, the launcher can be extended to apply migrations and seed data for a temporary database before starting services.
+
+## 2026-06-30 — Windows local startup script
+
+### Change
+
+- Added a root `start-local.cmd` launcher and `scripts/start-local.ps1` setup script for Windows local development.
+- Updated the README with the one-command startup path and script options.
+
+### Functional Outcome
+
+- Developers can start the project without manually running each setup command.
+- The script handles missing `.env`, missing `pnpm` shims through Corepack, Docker readiness, infrastructure startup, migrations, seed data, and the final development server command.
+
+### Future Optimization
+
+- A Unix shell wrapper can be added later if non-Windows local setup needs the same one-command path.
+
+## 2026-06-30 — Local MinIO initialization endpoint fix
+
+### Change
+
+- Updated the Docker Compose MinIO bucket initializer to use the Docker-network endpoint `http://minio:9000` instead of the host-facing `S3_ENDPOINT` value from `.env`.
+
+### Functional Outcome
+
+- Local startup works when `.env` contains `S3_ENDPOINT=http://localhost:9000` for the host-running API.
+- The bucket initialization container can reliably reach MinIO from inside the Compose network.
+
+### Future Optimization
+
+- If more services need separate host and container endpoints, the environment file can document both values explicitly.
+
+## 2026-06-30 — Windows dev server startup stabilization
+
+### Change
+
+- Changed the root `pnpm dev` command to start the API and web development servers through pnpm workspace filtering instead of Turbo's deprecated `--parallel` dev runner.
+
+### Functional Outcome
+
+- Local startup avoids a Windows native Turbo process crash after migrations and seed data complete.
+- Build, lint, typecheck, test, integration test, and production build commands still use the existing Turbo task pipeline.
+
+### Future Optimization
+
+- If Turbo's persistent task behavior is later configured without the deprecated parallel flag and verified on Windows, the dev command can be revisited.
+
+## 2026-06-30 — Prisma config migration
+
+### Change
+
+- Added `prisma.config.ts` with the schema path, migrations path, seed command, and `DATABASE_URL` datasource configuration.
+- Removed the deprecated `package.json#prisma` seed configuration.
+
+### Functional Outcome
+
+- Prisma migrate, generate, and seed commands no longer emit the deprecation warning about `package.json#prisma`.
+- The project is aligned with Prisma's configuration path before Prisma 7 removes the old package.json field.
+
+### Future Optimization
+
+- Review Prisma 7 migration notes before upgrading the ORM and client packages.
